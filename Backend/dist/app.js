@@ -11,7 +11,7 @@ app.use(cookieParser(process.env.COOKIE_SECRET));
 app.use(morgan("dev"));
 app.use("/api/v1", appRouter);
 app.get('/', (req, res) => {
-    res.send("Home Page");
+    res.send("<h1>Hello there</h1>");
 });
 export default app;
 //# sourceMappingURL=app.js.map

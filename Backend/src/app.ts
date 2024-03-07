@@ -14,7 +14,7 @@ app.use(morgan("dev"))
 
 app.use("/api/v1",appRouter)
 app.get('/',(req,res)=>{
-    res.send("Home Page")
+    res.send("<h1>Hello there</h1>")
 })
 
 export default app;
