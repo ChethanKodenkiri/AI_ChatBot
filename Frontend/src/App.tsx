@@ -21,8 +21,6 @@ function App() {
       <Route path='/notfound' element={<NotFound />} />
     </Routes>
 
-
-
  </main>
   )
 }
