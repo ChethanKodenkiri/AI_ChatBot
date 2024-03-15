@@ -5,6 +5,15 @@ import { RiLoginCircleLine } from "react-icons/ri";
 
 
 const Login = () => {
+  const handleSubmit=(e:React.FormEvent<HTMLFormElement>)=>{
+        e.preventDefault();
+        const formData = new FormData(e.currentTarget);
+        const email = formData.get('email');
+        const password = formData.get('password');
+        console.log(email, password);
+  }
+
+
   return (
     <Box width={"100%"} height={"100%"} display="flex" flex={1}>
       <Box padding={8} mt={8} display={{ md: "flex", sm: "none", xs: "none" }}>
@@ -25,6 +34,7 @@ const Login = () => {
         mt={3.75}
       >
         <form
+        onSubmit={handleSubmit}
           style={{
             margin: "auto",
             padding: "30px",
