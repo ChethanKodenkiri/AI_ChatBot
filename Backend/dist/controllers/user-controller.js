@@ -82,4 +82,17 @@ export const signIn = async (req, res, next) => {
 // export const signInpost = async(req:Request,res:Response,next:NextFunction)=>{
 //     res.send("hello there");
 // }
+export const verifyUser = async (req, res, next) => {
+    try {
+        const user = await User.findById(res.locals.jwtData.id);
+        if (!user) {
+            return res.status(400).send("Permission did not match");
+        }
+        return res.status(200).json({ message: "OK", name: user.name, email: user.email });
+    }
+    catch (error) {
+        console.log(error);
+        return res.status(400).json({ message: "ERROR", cause: error.message });
+    }
+};
 //# sourceMappingURL=user-controller.js.map
