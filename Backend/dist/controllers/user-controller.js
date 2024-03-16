@@ -38,7 +38,7 @@ export const createUser = async (req, res, next) => {
             expires,
             httpOnly: true
         });
-        return res.status(201).json({ message: "OK", id: user._id.toString() });
+        return res.status(201).json({ message: "OK", name: user.name, email: user.email });
     }
     catch (error) {
         console.log(error);
@@ -72,11 +72,14 @@ export const signIn = async (req, res, next) => {
             expires,
             httpOnly: true
         });
-        res.status(200).json({ message: 'Sign in', id: user._id.toString() });
+        res.status(200).json({ message: 'Sign in', name: user.name, email: user.email });
     }
     catch (error) {
         console.log(error);
         return res.status(400).json({ message: "ERROR", cause: error.message });
     }
 };
+// export const signInpost = async(req:Request,res:Response,next:NextFunction)=>{
+//     res.send("hello there");
+// }
 //# sourceMappingURL=user-controller.js.map

@@ -2,15 +2,28 @@ import React from "react";
 import { Box, Typography, Button } from "@mui/material";
 import CustomizedInput from "../components/shared/CustomizedInput";
 import { RiLoginCircleLine } from "react-icons/ri";
-
+import { useAuth } from "../components/context/AuthContext";
+import toast from "react-hot-toast";
 
 const Login = () => {
-  const handleSubmit=(e:React.FormEvent<HTMLFormElement>)=>{
+  const auth = useAuth();
+
+
+  const handleSubmit=async (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
-        const email = formData.get('email');
-        const password = formData.get('password');
-        console.log(email, password);
+        const email:string = formData.get('email') as string;
+        const password:string = formData.get('password') as string;
+        
+        try {
+          toast.loading("Signing In Please wait ",{ id :'login'})
+          await auth?.login(email,password);
+          toast.success("Signed In Successfully ",{ id :'login'})
+          
+        } catch (error) {
+          console.log(error)
+          toast.error('Something went wrong try again',{id:'login'})
+        }
   }
 
 
