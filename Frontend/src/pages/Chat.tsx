@@ -1,43 +1,45 @@
 import React from "react";
-import { Avatar, Box, Typography, Button } from "@mui/material";
+import { Avatar, Box, Typography, Button, IconButton } from "@mui/material";
 import { useAuth } from "../components/context/AuthContext";
+import ChatItem from "../components/chat/ChatItem";
+import { IoMdSend } from "react-icons/io";
 
- const chatMessages =[
+const chatMessages = [
   {
-    "role": "User",
-    "content": "What's the weather like today?"
+    role: "User",
+    content: "What's the weather like today?",
   },
   {
-    "role": "Assistant",
-    "content": "The weather today is partly cloudy with a high of 75°F."
+    role: "Assistant",
+    content: "The weather today is partly cloudy with a high of 75°F.",
   },
   {
-    "role": "User",
-    "content": "Can you set a reminder for my dentist appointment tomorrow at 10 AM?"
+    role: "User",
+    content:
+      "Can you set a reminder for my dentist appointment tomorrow at 10 AM?",
   },
   {
-    "role": "Assistant",
-    "content": "Sure, I've set a reminder for your dentist appointment tomorrow at 10 AM."
+    role: "Assistant",
+    content:
+      "Sure, I've set a reminder for your dentist appointment tomorrow at 10 AM.",
   },
   {
-    "role": "User",
-    "content": "How many centimeters are in an inch?"
+    role: "User",
+    content: "How many centimeters are in an inch?",
   },
   {
-    "role": "Assistant",
-    "content": "There are 2.54 centimeters in an inch."
+    role: "Assistant",
+    content: "There are 2.54 centimeters in an inch.",
   },
   {
-    "role": "User",
-    "content": "What's the capital of France?"
+    role: "User",
+    content: "What's the capital of France?",
   },
   {
-    "role": "Assistant",
-    "content": "The capital of France is Paris."
-  }
-]
-
-
+    role: "Assistant",
+    content: "The capital of France is Paris.",
+  },
+];
 
 const Chat = () => {
   const auth = useAuth();
@@ -117,7 +119,12 @@ const Chat = () => {
         </Box>
       </Box>
       <Box
-        sx={{ display: "flex", flex: { md: 0.8, xs: 1, sm: 1 }, flexDirection:'column',px:3 }}
+        sx={{
+          display: "flex",
+          flex: { md: 0.8, xs: 1, sm: 1 },
+          flexDirection: "column",
+          px: 4,
+        }}
       >
         <Typography
           sx={{
@@ -126,7 +133,7 @@ const Chat = () => {
             color: "white",
             mb: 2,
             mx: "auto",
-            fontWeight:'600'
+            fontWeight: "600",
           }}
         >
           GPT-3.5-Turbo
@@ -140,11 +147,42 @@ const Chat = () => {
             display: "flex",
             flexDirection: "column",
             overflow: "scroll",
-            overflowX:'hidden',
-            overflowY:'auto',
-            scrollBehavior:'smooth'
+            overflowX: "hidden",
+            overflowY: "auto",
+            scrollBehavior: "smooth",
           }}
-        >{chatMessages.map((chat)=><div>{chat.content}</div>)}</Box>
+        >
+          {chatMessages.map((chat, index) => (
+            <ChatItem content={chat.content} role={chat.role} key={index} />
+          ))}
+        </Box>
+        <div
+          style={{
+            width: "100%",
+            padding: "20px",
+            borderRadius: 8,
+            backgroundColor: "rgb(17,27,39)",
+            display: "flex",
+            margin: "auto",
+          }}
+        >
+          {" "}
+          <input
+            type="text"
+            style={{
+              width: "100%",
+              backgroundColor: "transparent",
+              padding: "10px",
+              border: "none",
+              outline: "none",
+              color: "white",
+              fontSize: "20px",
+            }}
+          />
+          <IconButton sx={{ ml: "auto", color: "white" }}>
+            <IoMdSend />
+          </IconButton>
+        </div>
       </Box>
     </Box>
   );
