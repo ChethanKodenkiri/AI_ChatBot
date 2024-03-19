@@ -17,3 +17,12 @@ export const verifyUser=async ()=>{
     const data = await res.data;
     return data;
 }
+
+export const sendChatMessage  = async(message:string)=>{
+    const res = await axios.post('http://localhost:3000/api/v1/chat/new',{message});
+    if(res.status !== 200){
+        throw new Error('Unable to Send Chat')
+    }
+    const data = await res.data;
+    return data;
+}
