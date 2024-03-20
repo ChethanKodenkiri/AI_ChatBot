@@ -26,3 +26,14 @@ export const sendChatMessage  = async(message:string)=>{
     const data = await res.data;
     return data;
 }
+
+
+
+export const getAllUserChat=async ()=>{
+    const res = await axios.get('http://localhost:3000/api/v1/chat/all-chat');
+    if(res.status !== 200){
+        throw new Error('Unable to Authenticate')
+    }
+    const data = await res.data;
+    return data;
+}

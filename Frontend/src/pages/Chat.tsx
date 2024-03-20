@@ -1,9 +1,10 @@
-import React, { useRef, useState } from "react";
+import React, { useLayoutEffect, useRef, useState } from "react";
 import { Avatar, Box, Typography, Button, IconButton } from "@mui/material";
 import { useAuth } from "../components/context/AuthContext";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
-import { sendChatMessage } from "../helpers/api-communicator";
+import { getAllUserChat, sendChatMessage } from "../helpers/api-communicator";
+import toast from "react-hot-toast";
 
 type Message = {
   role: string;
@@ -15,16 +16,31 @@ const Chat = () => {
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
 
-  const handleInput = async() => {
+  const handleInput = async () => {
     const content = inputRef.current?.value as string;
     if (inputRef && inputRef.current) {
       inputRef.current.value = "";
     }
     const newMessage: Message = { role: "user", content };
     setChatMessages((prev) => [...prev, newMessage]);
-   const chatData = await sendChatMessage(content);
-   setChatMessages([...chatData.chats]);
+    const chatData = await sendChatMessage(content);
+    setChatMessages([...chatData.chats]);
   };
+
+  useLayoutEffect(() => {
+    if (auth?.isLoggedIn && auth.user) {
+      toast.loading("loading chat", { id: "chatloading" });
+      getAllUserChat()
+        .then((data) => {
+          setChatMessages([...data.chat]);
+          toast.success("Succesfull", { id: "chatloading" });
+        })
+        .catch((err) => {
+          console.log(err);
+          toast.error("loading failed", { id: "chatloading" });
+        });
+    }
+  }, [auth]);
 
   return (
     <Box

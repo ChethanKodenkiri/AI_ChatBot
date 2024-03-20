@@ -87,3 +87,16 @@ export const generateChatCompletion = async (
     return res.status(500).json({ message: "Something went wrong" });
   }
 };
+
+
+export const sendUserChat = async(req:Request,res:Response,next:NextFunction)=>{
+  try {
+      const user = await User.findById(res.locals.jwtData.id);
+      if(!user){return res.status(400).send("Permission did not match");}
+      return res.status(200).json({message:"OK", chat: user.chat})
+     
+  } catch (error) {
+      console.log(error);
+      return res.status(400).json({message:"ERROR",cause:error.message})
+  }
+};
