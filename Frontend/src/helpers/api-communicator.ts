@@ -37,3 +37,12 @@ export const getAllUserChat=async ()=>{
     const data = await res.data;
     return data;
 }
+
+export const deleteUserChat=async ()=>{
+    const res = await axios.delete('http://localhost:3000/api/v1/chat/delete');
+    if(res.status !== 200){
+        throw new Error('Unable to Authenticate')
+    }
+    const data = await res.data;
+    return data;
+}

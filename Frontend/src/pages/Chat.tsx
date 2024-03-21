@@ -1,10 +1,15 @@
-import React, { useLayoutEffect, useRef, useState } from "react";
+import React, { useEffect, useLayoutEffect, useRef, useState } from "react";
 import { Avatar, Box, Typography, Button, IconButton } from "@mui/material";
 import { useAuth } from "../components/context/AuthContext";
 import ChatItem from "../components/chat/ChatItem";
 import { IoMdSend } from "react-icons/io";
-import { getAllUserChat, sendChatMessage } from "../helpers/api-communicator";
+import {
+  deleteUserChat,
+  getAllUserChat,
+  sendChatMessage,
+} from "../helpers/api-communicator";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 type Message = {
   role: string;
@@ -12,6 +17,7 @@ type Message = {
 };
 
 const Chat = () => {
+  const naviagte = useNavigate()
   const auth = useAuth();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
@@ -41,6 +47,24 @@ const Chat = () => {
         });
     }
   }, [auth]);
+
+  useEffect(()=>{
+    if(! auth?.user){
+      return naviagte('/login')
+    }
+  },[auth])
+
+  const deleteChat = () => {
+    deleteUserChat()
+      .then(() => {
+        setChatMessages([]);
+        toast.success("Deleted Successfully",{id:'deletechat'})
+      })
+      .catch(err => {
+        toast.error("Falied to delete", {id:'deletechat'})
+        console.log(err)
+      });
+  };
 
   return (
     <Box
@@ -102,6 +126,7 @@ const Chat = () => {
             Advices,Eduction, etc. But avoid sharing personal information
           </Typography>
           <Button
+          onClick={deleteChat}
             sx={{
               width: "200px",
               my: "auto",

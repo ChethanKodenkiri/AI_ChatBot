@@ -19,4 +19,6 @@ userRouter.post("/signin", validate(signinValidator), signIn);
 // userRouter.get('/signin',signInpost);
 userRouter.post("/signup", validate(signupValidator), createUser);
 userRouter.get("/auth-status", verifyToken,verifyUser);
+
+
 export default userRouter;

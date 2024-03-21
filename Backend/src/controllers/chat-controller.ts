@@ -100,3 +100,21 @@ export const sendUserChat = async(req:Request,res:Response,next:NextFunction)=>{
       return res.status(400).json({message:"ERROR",cause:error.message})
   }
 };
+
+export const deleteUserChat = async(req:Request,res:Response,next:NextFunction)=>{
+  try {
+      const user = await User.findById(res.locals.jwtData.id);
+      if(!user){return res.status(400).send("Permission did not match");}
+
+      if(user._id.toString()!== res.locals.jwtData.id){return res.status(401).send('User is not registered or token malfunctioned')}
+
+      //@ts-ignore
+      user.chat=[]
+      await user.save();
+      return res.status(200).json({message:"OK"})
+     
+  } catch (error) {
+      console.log(error);
+      return res.status(400).json({message:"ERROR",cause:error.message})
+  }
+};
