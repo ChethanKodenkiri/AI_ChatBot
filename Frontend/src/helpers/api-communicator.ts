@@ -46,3 +46,13 @@ export const deleteUserChat=async ()=>{
     const data = await res.data;
     return data;
 }
+
+
+export const logoutUser=async ()=>{
+    const res = await axios.get('http://localhost:3000/api/v1/user/logout');
+    if(res.status !== 200){
+        throw new Error('Unable to Authenticate')
+    }
+    const data = await res.data;
+    return data;
+}

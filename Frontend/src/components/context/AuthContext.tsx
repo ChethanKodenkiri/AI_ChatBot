@@ -5,7 +5,12 @@ import {
   useEffect,
   useState,
 } from "react";
-import { loginUser, verifyUser } from "../../helpers/api-communicator";
+import {
+  loginUser,
+  logoutUser,
+  verifyUser,
+} from "../../helpers/api-communicator";
+import toast from "react-hot-toast";
 
 type User = {
   name: string;
@@ -44,7 +49,20 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
     }
   };
   const signUp = async (name: string, email: string, password: string) => {};
-  const logout = async () => {};
+
+  const logout = async () => {
+    logoutUser()
+      .then(() => {
+        setIsLoggedIn(false);
+        setUser(null);
+        // window.location.reload();
+        toast.success("Logged Out"), { id: "logout" };
+      })
+      .catch(err=> {
+        toast.error("Logout Failed"), { id: "logout" };
+        console.log(err)
+      });
+  };
 
   const value = {
     user,

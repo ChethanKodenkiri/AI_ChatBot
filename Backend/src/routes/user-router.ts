@@ -3,7 +3,8 @@ import {
   getAllUsers,
   createUser,
   signIn,
-  verifyUser
+  verifyUser,
+  logout
 } from "../controllers/user-controller.js";
 import {
   validate,
@@ -19,6 +20,7 @@ userRouter.post("/signin", validate(signinValidator), signIn);
 // userRouter.get('/signin',signInpost);
 userRouter.post("/signup", validate(signupValidator), createUser);
 userRouter.get("/auth-status", verifyToken,verifyUser);
+userRouter.get("/logout", verifyToken,logout);
 
 
 export default userRouter;
