@@ -4,10 +4,15 @@ import CustomizedInput from "../components/shared/CustomizedInput";
 import { RiLoginCircleLine } from "react-icons/ri";
 import { useAuth } from "../components/context/AuthContext";
 import toast from "react-hot-toast";
+import { useNavigate } from "react-router-dom";
 
 const Login = () => {
   const auth = useAuth();
+  const navigate = useNavigate();
 
+  // const handleNavigate = ()=>{
+  //   navigate('/chat')
+  // }
 
   const handleSubmit=async (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
@@ -19,6 +24,7 @@ const Login = () => {
           toast.loading("Signing In Please wait ",{ id :'login'})
           await auth?.login(email,password);
           toast.success("Signed In Successfully ",{ id :'login'})
+          navigate('/chat');
           
         } catch (error) {
           console.log(error)
@@ -74,6 +80,7 @@ const Login = () => {
             <CustomizedInput type="email" name="email" label="Email" />
             <CustomizedInput type="password" name="password" label="Password" />
             <Button
+            // onClick={handleNavigate}
               type="submit"
               sx={{
                 px: 2,
