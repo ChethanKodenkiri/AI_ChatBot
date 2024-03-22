@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Box, Typography, Button } from "@mui/material";
 import CustomizedInput from "../components/shared/CustomizedInput";
 import { RiLoginCircleLine } from "react-icons/ri";
@@ -32,6 +32,11 @@ const Login = () => {
         }
   }
 
+  useEffect(()=>{
+    if(auth?.user){
+      return navigate('/chat')
+    }
+  },[auth])
 
   return (
     <Box width={"100%"} height={"100%"} display="flex" flex={1}>
