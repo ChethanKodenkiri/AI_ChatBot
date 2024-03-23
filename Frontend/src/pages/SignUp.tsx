@@ -17,18 +17,18 @@ const SignUp = () => {
   const handleSubmit=async (e:React.FormEvent<HTMLFormElement>)=>{
         e.preventDefault();
         const formData = new FormData(e.currentTarget);
+        const username:string = formData.get('name') as string;
         const email:string = formData.get('email') as string;
         const password:string = formData.get('password') as string;
         
         try {
-          toast.loading("Signing In Please wait ",{ id :'login'})
-          await auth?.login(email,password);
-          toast.success("Signed In Successfully ",{ id :'login'})
-          navigate('/chat');
+          toast.loading("Signing Up In Please wait ",{ id :'signUp'})
+          await auth?.signUp(username,email,password);
+          toast.success("Signed Up Successfully ",{ id :'signUp'})
           
         } catch (error) {
           console.log(error)
-          toast.error('Something went wrong try again',{id:'login'})
+          toast.error('Something went wrong try again',{id:'signUp'})
         }
   }
 

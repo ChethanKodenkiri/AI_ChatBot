@@ -9,6 +9,15 @@ export const loginUser=async (email:string, password:string)=>{
     return data;
 }
 
+export const signUpUser=async (name:string, email:string, password:string)=>{
+    const res = await axios.post('http://localhost:3000/api/v1/user/signup',{name,email,password});
+    if(res.status !== 201){
+        throw new Error('Unable to SignUp')
+    }
+    const data = await res.data;
+    return data;
+}
+
 export const verifyUser=async ()=>{
     const res = await axios.get('http://localhost:3000/api/v1/user/auth-status');
     if(res.status !== 200){
