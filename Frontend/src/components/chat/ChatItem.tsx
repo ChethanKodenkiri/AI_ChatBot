@@ -38,7 +38,6 @@ const ChatItem = ({ content, role }: { content: string; role: string }) => {
         <img src="\src\public\openai.png" alt="openai" width={"30px"} />
       </Avatar>
       <Box>
-        {/* <Typography lineHeight={2.5} fontSize={"15px"}>{content}</Typography> */}
         {!messageBlock && (
           <Typography lineHeight={2.5} fontSize={"15px"}>
             {content}

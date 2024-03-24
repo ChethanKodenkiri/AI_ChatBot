@@ -13,7 +13,7 @@ export const validate = (validations: ValidationChain[]) => {
     if (errors.isEmpty()) {
       return next();
     }
-      return res.status(422).json({ errors: errors.array() });
+    return res.status(422).json({ errors: errors.array() });
   };
 };
 
@@ -23,10 +23,10 @@ export const signinValidator = [
     .trim()
     .isLength({ min: 6 })
     .withMessage("Password should contatin more than 6 char"),
-]
+];
 export const signupValidator = [
   body("name").notEmpty().withMessage("Name is Required"),
-  ...signinValidator
+  ...signinValidator,
 ];
 
 export const chatComplitionValidator = [

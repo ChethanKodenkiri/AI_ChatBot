@@ -49,13 +49,13 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
       setIsLoggedIn(true);
     }
   };
-  
+
   const signUp = async (name: string, email: string, password: string) => {
-      const data = await signUpUser(name,email,password);
-      if(data){
-        setUser({email:data.email, name:data.name});
-        setIsLoggedIn(true);
-      }
+    const data = await signUpUser(name, email, password);
+    if (data) {
+      setUser({ email: data.email, name: data.name });
+      setIsLoggedIn(true);
+    }
   };
 
   const logout = async () => {
@@ -66,9 +66,9 @@ export const AuthProvider = ({ children }: { children: ReactNode }) => {
         // window.location.reload();
         toast.success("Logged Out"), { id: "logout" };
       })
-      .catch(err=> {
+      .catch((err) => {
         toast.error("Logout Failed"), { id: "logout" };
-        console.log(err)
+        console.log(err);
       });
   };
 

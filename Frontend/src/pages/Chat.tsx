@@ -17,7 +17,7 @@ type Message = {
 };
 
 const Chat = () => {
-  const naviagte = useNavigate()
+  const naviagte = useNavigate();
   const auth = useAuth();
   const inputRef = useRef<HTMLInputElement | null>(null);
   const [chatMessages, setChatMessages] = useState<Message[]>([]);
@@ -48,21 +48,21 @@ const Chat = () => {
     }
   }, [auth]);
 
-  useEffect(()=>{
-    if(! auth?.user){
-      return naviagte('/login')
+  useEffect(() => {
+    if (!auth?.user) {
+      return naviagte("/login");
     }
-  },[auth])
+  }, [auth]);
 
   const deleteChat = () => {
     deleteUserChat()
       .then(() => {
         setChatMessages([]);
-        toast.success("Deleted Successfully",{id:'deletechat'})
+        toast.success("Deleted Successfully", { id: "deletechat" });
       })
-      .catch(err => {
-        toast.error("Falied to delete", {id:'deletechat'})
-        console.log(err)
+      .catch((err) => {
+        toast.error("Falied to delete", { id: "deletechat" });
+        console.log(err);
       });
   };
 
@@ -126,7 +126,7 @@ const Chat = () => {
             Advices,Eduction, etc. But avoid sharing personal information
           </Typography>
           <Button
-          onClick={deleteChat}
+            onClick={deleteChat}
             sx={{
               width: "200px",
               my: "auto",

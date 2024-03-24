@@ -10,39 +10,33 @@ const Login = () => {
   const auth = useAuth();
   const navigate = useNavigate();
 
-  // const handleNavigate = ()=>{
-  //   navigate('/chat')
-  // }
+  const handleSubmit = async (e: React.FormEvent<HTMLFormElement>) => {
+    e.preventDefault();
+    const formData = new FormData(e.currentTarget);
+    const email: string = formData.get("email") as string;
+    const password: string = formData.get("password") as string;
 
-  const handleSubmit=async (e:React.FormEvent<HTMLFormElement>)=>{
-        e.preventDefault();
-        const formData = new FormData(e.currentTarget);
-        const email:string = formData.get('email') as string;
-        const password:string = formData.get('password') as string;
-        
-        try {
-          toast.loading("Signing In Please wait ",{ id :'login'})
-          await auth?.login(email,password);
-          toast.success("Signed In Successfully ",{ id :'login'})
-          navigate('/chat');
-          
-        } catch (error) {
-          console.log(error)
-          toast.error('Something went wrong try again',{id:'login'})
-        }
-  }
-
-  useEffect(()=>{
-    if(auth?.user){
-      return navigate('/chat')
+    try {
+      toast.loading("Signing In Please wait ", { id: "login" });
+      await auth?.login(email, password);
+      toast.success("Signed In Successfully ", { id: "login" });
+      navigate("/chat");
+    } catch (error) {
+      console.log(error);
+      toast.error("Something went wrong try again", { id: "login" });
     }
-  },[auth])
+  };
+
+  useEffect(() => {
+    if (auth?.user) {
+      return navigate("/chat");
+    }
+  }, [auth]);
 
   return (
     <Box width={"100%"} height={"100%"} display="flex" flex={1}>
       <Box padding={8} mt={8} display={{ md: "flex", sm: "none", xs: "none" }}>
         <img
-          // src="\src\public\Gpt.jpg"
           src="\src\public\Gpt2.jpg"
           alt="Gpt"
           style={{ width: "600px", borderRadius: "58px" }}
@@ -58,7 +52,7 @@ const Login = () => {
         mt={3.75}
       >
         <form
-        onSubmit={handleSubmit}
+          onSubmit={handleSubmit}
           style={{
             margin: "auto",
             padding: "30px",
@@ -85,7 +79,6 @@ const Login = () => {
             <CustomizedInput type="email" name="email" label="Email" />
             <CustomizedInput type="password" name="password" label="Password" />
             <Button
-            // onClick={handleNavigate}
               type="submit"
               sx={{
                 px: 2,
@@ -94,14 +87,12 @@ const Login = () => {
                 width: "400px",
                 borderRadius: 4,
                 bgcolor: "#5551FF",
-                color:"white",
-                // ":hover":{
-                //   bgcolor:'#BABAFF'
-                // }
-               
+                color: "white",
               }}
-              endIcon ={<RiLoginCircleLine />}
-            >Login</Button>
+              endIcon={<RiLoginCircleLine />}
+            >
+              Login
+            </Button>
           </Box>
         </form>
       </Box>

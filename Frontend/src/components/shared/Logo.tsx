@@ -1,7 +1,5 @@
-import React from 'react'
-import { Link } from 'react-router-dom';
-import { Typography } from '@mui/material';
-
+import { Link } from "react-router-dom";
+import { Typography } from "@mui/material";
 
 const Logo = () => {
   return (
@@ -15,13 +13,14 @@ const Logo = () => {
     >
       <Link to={"/"}>
         <img
-          src='\src\public\openai.png'
+          src="\src\public\openai.png"
           alt="OpenAI"
           width={"30px"}
           height={"30px"}
           className="image-inverted"
         />
-      </Link>{''}
+      </Link>
+      {""}
       <Typography
         sx={{
           display: { md: "block", sm: "none", xs: "none" },
@@ -34,6 +33,6 @@ const Logo = () => {
       </Typography>
     </div>
   );
-}
+};
 
-export default Logo
+export default Logo;
